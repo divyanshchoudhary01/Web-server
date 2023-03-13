@@ -1,0 +1,20 @@
+#include<res>
+#include<req>
+using namespace req;
+using namespace res;
+namespace tmwp
+{
+class TMWEBProjector
+{
+private:
+int portNumber;
+map<string,void (*)(Request &,Response &)> m;
+char *url;
+void (*ptrOnRequest)(Request &,Response &);
+public:
+TMWEBProjector(int portNumber);
+~TMWEBProjector();
+void start();
+void onRequest(string url,void (*ptrOnRequest)(Request & ,Response &));
+};
+}

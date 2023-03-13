@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>HR Application</title>
+<script>
+function load()
+{
+var login=sessionStorage.getItem("login");
+if(login==null)
+{
+window.location.assign("login.html"); 
+}
+}
+window.addEventListener('load',load);
+</script>
+</head>
+<body>
+<!--Main Container starts here-->
+<div style='width:90hw;height:auto;border:1px solid black'>
+<!--header section starts here-->
+<div style='width:90hw;height:auto;margin:5px;border:1px solid black'>
+<div style='width:90hw;height:auto;margin:5px;font-size:20pt'>Thinking Machines
+<a href='logout.html' align='center'>logout</a>
+</div>
+</div>
+<!--header section ends here-->
+<!-- Content Section starts here-->
+<div style='width:90hw;height:63vh;margin:5px;border:1px solid black'>
+<!--left panel starts here-->
+<div style='height:60vh;margin:5px;float:left;padding:5px;border:1px solid black'>
+<a href='Designations.html'>Designations</a><br>
+<a href='EmployeeView.html'>Employees</a>
+</div>
+<!--left panel ends here-->
+<!--Right panel starts here-->
+<div style='height:60vh;margin-left:105px;margin-right:5px;margin-top:5px;margin-bottom:5px;padding:5px;border:1px solid black'>
+<h2>Employee Module</h2>
+<h1>WELCOME</h1>
+</div>
+<!--Right panel ends here-->
+</div>
+<!--Content Section ends here-->
+<!--footer section starts here-->
+<div style='width:90hw;height:auto;margin:5px;text-align:center;border:1px solid black'>&copy;Thinking Machines
+</div>
+<!--footer section ends here-->
+</div>
+<!--Main Container ends here-->
+</body>
+</html>

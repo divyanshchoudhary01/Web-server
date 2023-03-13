@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://use.fontawesome.com/920ed97574.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Eduford | Courses</title>
+    <link rel="icon" href="./Images/android-chrome-192x192.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="./Images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./Images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./Images/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+
+<body>
+    <!-- Banner Navigation  -->
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"> <img src="./Images/logo.png" /></a>
+            <div class="nav-links" id="navlinks">
+                <i class="fa fa-times" onclick="hidemenu()"></i>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="course.html" >Course</a></li>
+                    <li><a href="./blog.html">Blog</a></li>
+                    <li><a href="about us.html">About us</a></li>
+                    <li><a href="./contact.html">Contact us</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showmenu()"></i>
+        </nav>
+        <h1>Our Courses</h1>
+    </section>
+
+    <!-- -----------courses--------- -->
+
+    <section class="course">
+        <h1>Courses we offer</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    
+        <div class="row">
+            <div class="col">
+                <h3>Intermidiate</h3>
+                <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque
+                    minus dolor officia totam earum quidem, vel possimus dolorem
+                    repellat lorem ipsum dolor expedita commodi fugit.
+                </p>
+            </div>
+    
+            <div class="col">
+                <h3>Under-graduate</h3>
+                <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque
+                    minus dolor officia totam earum quidem, vel possimus dolorem
+                    repellat lorem ipsum dolor expedita commodi fugit.
+                </p>
+            </div>
+    
+            <div class="col">
+                <h3>Post- graduate</h3>
+                <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque
+                    minus dolor officia totam earum quidem, vel possimus dolorem
+                    repellat lorem ipsum dolor expedita commodi fugit.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- -------------------Facilities------------->
+    <section class="facilities">
+        <h1>Our facilities</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <div class="row">
+            <div class="col-2">
+                <img src="./Images/library.png" />
+                <h3>World class library</h3>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, qui.
+                </p>
+            </div>
+            <div class="col-2">
+                <img src="./Images/basketball.png" />
+                <h3>Largest Playground</h3>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum,
+                    numquam!
+                </p>
+            </div>
+            <div class="col-2">
+                <img src="./Images/cafeteria.png" />
+                <h3>World class cafeteria</h3>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Consequatur, in.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- -----------Footer--------- -->
+
+    <section class="footer">
+        <h4>About us</h4>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores laboriosam tempora sequi quam, illo hic quo
+            consequuntur facere veritatis cumque magnam, <br>sed vero voluptatem perspiciatis odit totam magni modi
+            nobis id alias reiciendis quia architecto ratione. Sunt odit fuga eos?</p>
+        <div class="icons">
+            <i class="fa fa-facebook"></i>
+            <i class="fa fa-instagram"></i>
+            <i class="fa fa-twitter"></i>
+            <i class="fa fa-linkedin"></i>
+        </div>
+        <p>Made with <i class="fa fa-heart-o"></i> by Aditya Priyam</p>
+    </section>
+
+    <script>
+        var navlinks = document.getElementById("navlinks");
+
+        function showmenu() {
+            navlinks.style.right = "0";
+        }
+
+        function hidemenu() {
+            navlinks.style.right = "-200px";
+        }
+    </script>
+</body>
+
+</html>

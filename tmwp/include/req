@@ -1,0 +1,35 @@
+#include<iostream>
+using namespace std;
+namespace req
+{
+class Request
+{
+private:
+string data;
+string resource;
+string method;
+bool isClientSideTechnologyResource;
+string mimeType;
+map<string,string> m;
+public:
+string forwardRequest;
+void setMap(map<string,string> &m);
+map<string,string> getMap();
+void setIsClientSideTechnologyResource(bool isClientSideTechnologyResource);
+bool getIsClientSideTechnologyResource();
+void setMimeType(string mimeType);
+string getMimeType();
+void setMethod(string method);
+string getMethod();
+void setResource(string resource);
+string getResource();
+void setData(string data);
+string get(string data);
+
+void forward(string forwardTo);
+
+
+
+
+};
+}

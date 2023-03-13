@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://use.fontawesome.com/920ed97574.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Eduford | About us</title>
+    <link rel="icon" href="./Images/android-chrome-192x192.png" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="180x180" href="./Images/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="./Images/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="./Images/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+</head>
+
+<body>
+    <!-- Banner Navigation  -->
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"> <img src="./Images/logo.png" /></a>
+            <div class="nav-links" id="navlinks">
+                <i class="fa fa-times" onclick="hidemenu()"></i>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="./course.html">Course</a></li>
+                    <li><a href="./blog.html">Blog</a></li>
+                    <li><a href="about us.html">About us</a></li>
+                    <li><a href="./contact.html">Contact us</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showmenu()"></i>
+        </nav>
+         <h1>About us</h1>
+    </section>
+
+    <!-- -----------About us--------- -->
+
+    <section class="about-us">
+        <div class="row">
+            <div class="col-4">
+                <h1>Welcome to the world's biggest university</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum facere quae veniam, id odit nihil exercitationem cupiditate rem in enim debitis commodi ex accusamus impedit eos voluptatibus officiis amet est at vero placeat voluptates fuga suscipit. Saepe repellendus magni tenetur voluptatem eligendi quis facere sint fugiat, aspernatur libero laboriosam numquan! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum autem amet delectus cupiditate nesciunt tempora. Laborum adipisci ratione at voluptas.</p>
+                <input type="button" class="btn red-btn" value="Explore now">
+            </div>
+            <div class="col-4">
+                <img src="./Images/about.jpg" alt="">
+            </div>
+        </div>
+    </section>
+
+
+    <!-- -----------Footer--------- -->
+
+    <section class="footer">
+        <h4>About us</h4>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores laboriosam tempora sequi quam, illo hic quo
+            consequuntur facere veritatis cumque magnam, <br>sed vero voluptatem perspiciatis odit totam magni modi
+            nobis id alias reiciendis quia architecto ratione. Sunt odit fuga eos?</p>
+        <div class="icons">
+            <i class="fa fa-facebook"></i>
+            <i class="fa fa-instagram"></i>
+            <i class="fa fa-twitter"></i>
+            <i class="fa fa-linkedin"></i>
+        </div>
+        <p>Made with <i class="fa fa-heart-o"></i> by Aditya Priyam</p>
+    </section>
+
+    <script>
+        var navlinks = document.getElementById("navlinks");
+
+        function showmenu() {
+            navlinks.style.right = "0";
+        }
+
+        function hidemenu() {
+            navlinks.style.right = "-200px";
+        }
+    </script>
+</body>
+
+</html>

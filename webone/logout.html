@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<link rel='stylesheet' type='text/css' href='styles.css'>
+<script>
+function logout()
+{
+sessionStorage.removeItem("login");
+window.location.assign("login.html"); 
+}
+function load()
+{
+var login=sessionStorage.getItem("login");
+if(login==null)
+{
+window.location.assign("login.html"); 
+}
+}
+window.addEventListener('load',logout);
+window.addEventListener('load',load);
+</script>
+</head>
+<body>
+<!--Main container starts here-->
+<div style='width:60hw;height:auto;border:1px solid black'>
+<!-- header starts here-->
+<div style='margin:5px; width:90hw;height:auto;border:1px solid black'>
+<div style='margin-top:9px;margin-bottom:9px;font-size:20pt'>Thinking Machines</div>
+</div>
+<!-- header ends here>
+<!-- content-section starts here-->
+<div style='width:40hw;margin:20px;height:63vh;border:1px solid black'>
+<h1 align='center'>Administrator</h1>
+<form action='home.html' align='center'>
+<span id='UsernameErrorSection' class='error'></span><br>
+User Name <input type='text' name='username' id='username'><br>
+Password  <input type='password' name='password' id='password'><br>
+<span id='PasswordErrorSection' class='error'></span><br>
+<br>
+<button type='button' onclick='loginForm()'>Login</button>
+</form>
+</div>
+<!--content section ends here-->
+<!--footer starts here-->
+<div-style='width:90hw;height:auto;margin:5px;text-align:Center;border:1px solid black'>&copy;thinking machines</div>
+<!--footer ends here-->
+</div>
+<!--Main container ends here-->
+</body>
+</html>

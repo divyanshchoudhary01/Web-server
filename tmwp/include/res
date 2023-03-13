@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+#include<iostream>
+using namespace std;
+namespace res
+{
+class Response
+{
+private:
+string k;
+int clientSocketDescriptor;
+bool headerCreated;
+bool isClosed;
+public:
+Response();
+void write(const char *str);
+Response(int clientSocketDescriptor);
+string getWrite();
+void close();
+void createHeader();
+};
+}

@@ -1,0 +1,24 @@
+Title->Doctor Appoitment Booking System
+Number of forms/pages
+1) First Page will be a login Page
+//if dont have the account ,create the account
+//after creation of account,insert this data into database
+//next time user try to login ,fetch the data from database and verify it
+2) after login,appoint form will be there 
+In appointment form ,there will be various fields
+such as 
+1)Name of the patient
+2)phone Number
+3)Emergency Contact
+4)Father Name
+5)Mother Name
+6)Appointment date
+7)Symptons
+8) Previous doctor consultation name
+9) Disease
+10) Reports
+11) last Corona test report
+on clicking the button,if all the fields are correct then send request to server side
+there an appointment will be created within that time slot . Entry will be done in
+the database.Remove this booked slot from the available slots/free slots.
+Name of the website Dr lathia.(thyroid doctor)

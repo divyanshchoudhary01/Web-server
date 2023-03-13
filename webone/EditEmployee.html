@@ -1,0 +1,351 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>HR Application</title>
+<style>
+.error
+{
+color:red;
+}
+.main_container
+{
+width:90hw;
+height:auto;
+border:1px solid black;
+}
+.header
+{
+width:90hw;
+height:auto;
+margin:5px;
+border:1px solid black;
+}
+.brand_name
+{
+width:90hw;
+height:auto;
+margin:5px;
+font-size:20pt;
+}
+.content
+{
+width:90hw;
+height:63vh;
+margin:5px;
+border:1px solid black;
+}
+.content_left_panel
+{
+height:60vh;
+margin:5px;
+float:left;
+padding:5px;
+border:1px solid black;
+}
+.content_right_panel
+{
+height:60vh;
+margin-left:105px;
+margin-right:5px;
+margin-top:5px;
+margin-bottom:5px;
+padding:5px;
+overflow:scroll;
+border:1px solid black;
+}
+.footer
+{
+width:90hw;
+height:auto;
+margin:5px;
+text-align:center;
+border:1px solid black;
+}
+</style>
+
+<script>
+function cancelAddition()
+{
+document.getElementById('cancelAddition').submit();
+}
+function loadTitle()
+{
+var login=sessionStorage.getItem("login");
+if(login==null)
+{
+window.location.assign("login.html"); 
+}
+var i;
+var xmlHttpRequest=new XMLHttpRequest()
+xmlHttpRequest.onreadystatechange=function(){
+if(this.readyState==4)
+{
+if(this.status==200)
+{
+var responseData=this.responseText;
+var splits=responseData.split(",");
+var designationComboBox=document.getElementById("designationCode");
+var obj;
+for(i=0;i<splits.length;i=i+2)
+{
+obj=document.createElement("option");
+obj.value=splits[i];
+obj.text=splits[i+1];
+designationComboBox.appendChild(obj);
+}
+}
+else
+{
+alert("Some Problem");
+}
+}
+};
+xmlHttpRequest.open('GET','getDesignation',false);
+xmlHttpRequest.send();
+}
+function loadData()
+{
+var login=sessionStorage.getItem("login");
+if(login==null)
+{
+window.location.assign("login.html"); 
+}
+var i;
+var url=document.location.href;
+var id=url.split('?')[1].split('=')[1];
+var xmlHttpRequest=new XMLHttpRequest()
+i=0;
+xmlHttpRequest.onreadystatechange=function(){
+if(this.readyState==4)
+{
+if(this.status==200)
+{
+var responseData=this.responseText;
+var splits=responseData.split(",");
+document.getElementById("name").value=splits[i];
+document.getElementById("designationCode").value=splits[i+8].trim();
+document.getElementById("designationCode").text=splits[i+1].trim();
+document.getElementById('dateOfBirth').value=splits[i+2].trim();
+var compare1=splits[i+3].trim();
+if(compare1.localeCompare("M")==0)
+{
+document.getElementById('gender').value=1;
+document.getElementById('gender').text=splits[i+3];
+}
+else
+{
+document.getElementById('gender').value=2;
+document.getElementById('gender').text=splits[i+3];
+}
+var compare=splits[i+4].trim();
+if(compare.localeCompare("true")==0)
+{
+document.getElementById('isIndian').value=1;
+document.getElementById('isIndian').text="Yes";
+}
+else
+{
+document.getElementById('isIndian').value=2;
+document.getElementById('isIndian').text="No";
+}
+document.getElementById('basicSalary').value=splits[i+5];
+document.getElementById('panCardNumber').value=splits[i+6];
+document.getElementById('aadharCardNumber').value=splits[i+7];
+}
+else
+{
+alert("Some Problem");
+}
+}
+};
+var requestURL="editEmployee?id="+encodeURI(id);
+xmlHttpRequest.open('GET',requestURL,false);
+xmlHttpRequest.send();
+}
+function EmployeeEditForm()
+{
+var xmlHttpRequest=new XMLHttpRequest();
+var url=document.location.href;
+var id=url.split('?')[1].split('=')[1];
+var name=document.getElementById("name").value;
+var nameErrorSection=document.getElementById('nameErrorSection');
+var designationCode=document.getElementById("designationCode").value;
+var designationErrorSection=document.getElementById("designationErrorSection");
+var date=document.getElementById('dateOfBirth').value;
+var dateOfBirthErrorSection=document.getElementById('dateOfBirthErrorSection');
+var gender=document.getElementById('gender').value.trim();
+var genderErrorSection=document.getElementById('genderErrorSection');
+var isIndian=document.getElementById('isIndian').value;
+var isIndianErrorSection=document.getElementById('isIndianErrorSection');
+var basicSalary=document.getElementById('basicSalary').value;
+var basicSalaryErrorSection=document.getElementById('basicSalaryErrorSection');
+var panCardNumber=document.getElementById('panCardNumber').value;
+var panCardNumberErrorSection=document.getElementById('panCardNumberErrorSection');
+var aadharCardNumber=document.getElementById('aadharCardNumber').value;
+var aadharCardNumberErrorSection=document.getElementById('aadharCardNumberErrorSection');
+if(name.length==0 || designationCode==-1 || basicSalary.length==0 || gender==-1 || panCardNumber.length==0 || aadharCardNumber.length==0 || date.length==0 || isIndian==-1)
+{
+nameErrorSection.innerHTML="";
+if(name.length==0) nameErrorSection.innerHTML="Name section is empty";
+designationErrorSection.innerHTML="";
+if(designationCode==-1) designationErrorSection.innerHTML="Select designation";
+dateOfBirthErrorSection.innerHTML="";
+if(date.length==0) dateOfBirthErrorSection.innerHTML="Select date";
+genderErrorSection.innerHTML="";
+if(gender==-1) genderErrorSection.innerHTML="Select gender";
+isIndianErrorSection.innerHTML="";
+if(isIndian==-1) isIndianErrorSection.innerHTML="Select identity";
+basicSalaryErrorSection.innerHTML="";
+if(basicSalary.length==0) basicSalaryErrorSection.innerHTML="Enter Basic Salary";
+panCardNumberErrorSection.innerHTML="";
+if(panCardNumber.length==0) panCardNumberErrorSection.innerHTML="Enter Pan Card Number";
+aadharCardNumberErrorSection.innerHTML="";
+if(aadharCardNumber.length==0) aadharCardNumberErrorSection.innerHTML="Enter Aadhar Card Number";
+return;
+}
+xmlHttpRequest.onreadystatechange=function(){
+if(this.readyState==4)
+{
+if(this.status==200)
+{
+dateOfBirthErrorSection.innerHTML="";
+basicSalaryErrorSection.innerHTML="";
+genderErrorSection.innerHTML="";
+nameErrorSection.innerHTML="";
+aadharCardNumberErrorSection.innerHTML="";
+panCardNumberErrorSection.innerHTML="";
+designationErrorSection.innerHTML="";
+var responseData=this.responseText;
+if(responseData.localeCompare("UPDATE")==0)
+{
+window.location.assign("Notification4.html"); 
+}
+if(responseData.localeCompare("PA")==0)
+{
+panCardNumberErrorSection.innerHTML="Pan Number exists";
+aadharCardNumberErrorSection.innerHTML="Aadhar Card Number exists";
+}
+if(responseData.localeCompare("PANNUMBEREXISTS")==0)
+{
+panCardNumberErrorSection.innerHTML="Pan Number exists";
+}
+if(responseData.localeCompare("AADHARCARDNUMBEREXISTS")==0)
+{
+aadharCardNumberErrorSection.innerHTML="Aadhar Card Number exists";
+}
+if(responseData.localeCompare("DESIGNATIONCODENOTEXISTS")==0)
+{
+designationCodeErrorSection.innerHTML="Select designation code";
+}
+}
+else
+{
+alert("some problem");
+}
+}
+};
+var requestURL="UpdateEmployee?name="+encodeURI(name)+"&id="+encodeURI(id)+"&isIndian="+encodeURI(isIndian)+"&designationCode="+encodeURI(designationCode)+"&gender="+encodeURI(gender)+"&date="+encodeURI(date)+"&basicSalary="+encodeURI(basicSalary)+"&panCardNumber="+encodeURI(panCardNumber)+"&aadharCardNumber="+encodeURI(aadharCardNumber);
+xmlHttpRequest.open('GET',requestURL,true);
+xmlHttpRequest.send();
+}
+window.addEventListener('load',loadTitle);
+window.addEventListener('load',loadData);
+</script>
+</head>
+<body>
+<!--Main Container starts here-->
+<div style='width:90hw;height:auto;border:1px solid black'>
+<!--header section starts here-->
+<div style='width:90hw;height:auto;margin:5px;border:1px solid black'>
+<div style='width:90hw;height:auto;margin:5px;font-size:20pt'>Thinking Machines
+<a href='logout.html' align='center'>logout</a>
+</div>
+</div>
+<!--header section ends here-->
+<!-- Content Section starts here-->
+<div style='width:90hw;height:63vh;margin:5px;border:1px solid black'>
+<!--left panel starts here-->
+<div style='height:60vh;margin:5px;float:left;padding:5px;border:1px solid black'>
+<a href='Designations.html'>Designations</a><br>
+<b>Employees</b>
+</div>
+<!--left panel ends here-->
+<!--Right panel starts here-->
+<div style='height:60vh;margin-left:105px;margin-right:5px;margin-top:5px;margin-bottom:5px;padding:5px;border:1px solid black'>
+<h2>Edit Employee Module</h2>
+<table>
+<tr>
+<td>Name</td>
+<td><input type='text' id='name' name='id' maxLength='50' size='51'>
+<span id='nameErrorSection' style='color:red'></span></td>
+</tr>
+<tr>
+<td>Designation</td>
+<td>
+<select id='designationCode'><option value='-1'>&lt;Select Designation&gt;</option>
+</select>
+<span id='designationErrorSection' style='color:red'></span>
+</td>
+</tr>
+<tr>
+<td>Date Of Birth</td>
+<td><input type='date' name='dateOfBirth' id='dateOfBirth' min='1940-01-01'>
+<span id='dateOfBirthErrorSection' style='color:red'></span>
+</td>
+</tr>
+<tr>
+<td>Gender</td>
+<td>
+<select id='gender'><option value='-1'>&lt;Select gender&gt;</option>
+<option value='1'>Male</option>
+<option value='2'>female</option>
+</select>
+<span id='genderErrorSection' style='color:red'></span>
+</td>
+</tr>
+<tr>
+<td>Indian ?</td>
+<td>
+<select id='isIndian'><option value='-1'>&lt;Select&gt;</option>
+<option value='1'>Yes</option>
+<option value='2'>No</option> 
+</select>
+<span id='isIndianErrorSection' style='color:red'></span>
+</td>
+</tr>
+<tr>
+<td>Basic Salary</td>
+<td><input type='text' name='basicSalary' id='basicSalary'>
+<span id='basicSalaryErrorSection' style='color:red'></span>
+</td>
+</tr>
+<tr>
+<td>PanCard Number</td>
+<td><input type='text' name='panCardNumber' id='panCardNumber'>
+<span id='panCardNumberErrorSection' style='color:red'></span>
+</td>
+</tr>
+<tr>
+<td>AadharCard Number</td>
+<td><input type='text' name='aadharCardNumber' id='aadharCardNumber'>
+<span id='aadharCardNumberErrorSection' style='color:red'></span>
+</td>
+</tr>
+</table>                       
+<button type='button' onclick='EmployeeEditForm()'>Save</button>
+<form id='cancelAddition' action='EmployeeView.html'>
+<button type='button' onclick='cancelAddition()'>Cancel</button>
+</form>
+</div>
+<!--Right panel ends here-->
+</div>
+<!--Content Section ends here-->
+<!--footer section starts here-->
+<div style='width:90hw;height:auto;margin:5px;text-align:center;border:1px solid black'>&copy;Thinking Machines
+</div>
+<!--footer section ends here-->
+</div>
+<!--Main Container ends here-->
+</body>
+</html>

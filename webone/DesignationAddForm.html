@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>HR Application</title>
+<style>
+.error
+{
+color:red;
+}
+.main_container
+{
+width:90hw;
+height:auto;
+border:1px solid black;
+}
+.header
+{
+width:90hw;
+height:auto;
+margin:5px;
+border:1px solid black;
+}
+.brand_name
+{
+width:90hw;
+height:auto;
+margin:5px;
+font-size:20pt;
+}
+.content
+{
+width:90hw;
+height:63vh;
+margin:5px;
+border:1px solid black;
+}
+.content_left_panel
+{
+height:60vh;
+margin:5px;
+float:left;
+padding:5px;
+border:1px solid black;
+}
+.content_right_panel
+{
+height:60vh;
+margin-left:105px;
+margin-right:5px;
+margin-top:5px;
+margin-bottom:5px;
+padding:5px;
+overflow:scroll;
+border:1px solid black;
+}
+.footer
+{
+width:90hw;
+height:auto;
+margin:5px;
+text-align:center;
+border:1px solid black;
+}
+</style>
+
+<script>
+function designationAddForm()
+{
+var title=document.getElementById("title").value;
+var titleSpan=document.getElementById('titleErrorSection');
+if(title.length==0)
+{
+titleSpan.innerHTML="Title section is empty";
+return;
+}
+var xmlHttpRequest=new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange=function(){
+if(this.readyState==4)
+{
+if(this.status==200)
+{
+var responseData=this.responseText;
+if(responseData.localeCompare("UPDATE")==0)
+{
+window.location.assign("Notification.html"); 
+}
+else if(responseData=="INVALID")
+{
+titleSpan.innerHTML="Title Section is empty";
+}
+else
+{
+titleSpan.innerHTML=responseData;
+}
+}
+else
+{
+alert("some problem");
+}
+}
+};
+var requestURL="AddDesignation?title="+encodeURI(title);
+xmlHttpRequest.open('GET',requestURL,true);
+xmlHttpRequest.send();
+}
+</script>
+</head>
+<body>
+<!--Main Container starts here-->
+<div class='main_container'>
+<!--header section starts here-->
+<div class='header'>
+<div class='brand_name'>Thinking Machines
+<a href='logout.html' align='center'>logout</a>
+</div>
+</div>
+<!--header section ends here-->
+<!-- Content Section starts here-->
+<div class='content'>
+<!--left panel starts here-->
+<div class='content_left_panel'>
+<b>Designations</b><br>
+<a href='EmployeeView.html'>Employees</a>
+</div>
+<!--left panel ends here-->
+<!--Right panel starts here-->
+<div class='content_right_panel'>
+Name
+<input type='text' name='title' id='title' >
+<span id='titleErrorSection' class='error'></span><br>
+<button type='button' onclick='designationAddForm()'>Save</button>
+<form action='Designations.html'>
+<button type='submit'>cancel</button>
+</form>
+</div>
+<!--Right panel ends here-->
+</div>
+<!--Content Section ends here-->
+<!--footer section starts here-->
+<div class='footer'>&copy;Thinking Machines
+</div>
+<!--footer section ends here-->
+</div>
+<!--Main Container ends here-->
+</body>
+</html>

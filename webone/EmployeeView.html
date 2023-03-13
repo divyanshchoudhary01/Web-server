@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>HR Application</title>
+<style>
+.error
+{
+color:red;
+}
+.main_container
+{
+width:90hw;
+height:auto;
+border:1px solid black;
+}
+.header
+{
+width:90hw;
+height:auto;
+margin:5px;
+border:1px solid black;
+}
+.brand_name
+{
+width:90hw;
+height:auto;
+margin:5px;
+font-size:20pt;
+}
+.content
+{
+width:90hw;
+height:63vh;
+margin:5px;
+border:1px solid black;
+}
+.content_left_panel
+{
+height:60vh;
+margin:5px;
+float:left;
+padding:5px;
+border:1px solid black;
+}
+.content_right_panel
+{
+height:60vh;
+margin-left:105px;
+margin-right:5px;
+margin-top:5px;
+margin-bottom:5px;
+padding:5px;
+overflow:scroll;
+border:1px solid black;
+}
+.footer
+{
+width:90hw;
+height:auto;
+margin:5px;
+text-align:center;
+border:1px solid black;
+}
+</style>
+
+<script>
+function Employee()
+{
+this.employeeId="";
+this.name="";
+this.gender="";
+this.dateOfBirth="";
+this.BasicSalary=0;
+this.panNumber="";
+this.aadharCardNumber="";
+this.isIndian=true;
+this.title="";
+}
+var selectedRow=null;
+var employees=[];
+function selectEmployee(row,employeeID)
+{
+if(row==selectedRow) return;
+if(selectedRow!=null)
+{
+selectedRow.style.background="white";
+selectedRow.style.color="black";
+}
+row.style.background="Grey";
+row.style.color="white";
+selectedRow=row;
+var i=0;
+for(i=0;i<employees.length;i++)
+{
+if(employees[i].employeeId==employeeID) break;
+}                                     
+document.getElementById("detail_panel_employeeId").innerHTML=employeeID;  
+document.getElementById("detail_panel_dateOfBirth").innerHTML=employees[i].dateOfBirth;
+document.getElementById("detail_panel_gender").innerHTML=employees[i].gender;
+document.getElementById("detail_panel_isIndian").innerHTML=employees[i].isIndian;
+document.getElementById("detail_panel_panCard").innerHTML=employees[i].panNumber;
+document.getElementById("detail_panel_aadharCardNumber").innerHTML=employees[i].aadharCardNumber;
+document.getElementById("detail_panel_basicSalary").innerHTML=employees[i].BasicSalary;
+}
+function createDynamicRowHandler(dynamicRow,employeeId)
+{
+return function(){
+selectEmployee(dynamicRow,employeeId);
+};
+}
+function populateEmployees()
+{
+var login=sessionStorage.getItem("login");
+if(login==null)
+{
+window.location.assign("login.html"); 
+}
+var xmlHttpRequest=new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange=function(){
+if(this.readyState==4)
+{
+if(this.status==200)
+{
+var responseData=this.responseText;
+var EmployeeGridTable=document.getElementById("EmployeeGridTable");
+var EmployeeGridTableBody=EmployeeGridTable.getElementsByTagName("tbody")[0];
+var EmployeeGridTableBodyRowTemplate=EmployeeGridTableBody.getElementsByTagName("tr")[0];
+EmployeeGridTableBodyRowTemplate.remove();
+var dynamicRow;
+var dynamicRowCells;
+var k;
+var placeHolderId;
+var cellTemplate;
+var splits=responseData.split(",");
+var j=0;
+var employee;
+for(var i=0;i<splits.length;i=i+9)
+{
+employee=new Employee();
+employee.employeeId=(splits[i]);
+employee.name=(splits[i+1]);
+employee.gender=(splits[i+2]);
+employee.panNumber=(splits[i+4]);
+employee.BasicSalary=(splits[i+3]);
+employee.dateOfBirth=(splits[i+5]);
+employee.aadharCardNumber=(splits[i+6]);
+employee.isIndian=(splits[i+7]);
+employee.title=(splits[i+8]);
+employees[j]=employee;
+j++;
+}
+for(k=0;k<employees.length;k++)
+{
+dynamicRow=EmployeeGridTableBodyRowTemplate.cloneNode(true);
+EmployeeGridTableBody.appendChild(dynamicRow);
+dynamicRowCells=dynamicRow.getElementsByTagName("td");
+for(i=0;i<dynamicRowCells.length;i++)
+{
+cellTemplate=dynamicRowCells[i];
+placeHolderId=cellTemplate.getAttribute("placeHolderId");
+if(placeHolderId==null) continue;
+if(placeHolderId=="serialNumberPlaceHolder") cellTemplate.innerHTML=(k+1);
+if(placeHolderId=="namePlaceHolder") cellTemplate.innerHTML=employees[k].name;
+if(placeHolderId=="titlePlaceHolder") cellTemplate.innerHTML=employees[k].title;
+if(placeHolderId=="employeeIdPlaceHolder") cellTemplate.innerHTML=employees[k].employeeId;
+if(placeHolderId=="editOption") cellTemplate.innerHTML="<a href='EditEmployee.html?id="+employees[k].employeeId+"'>Edit</a>";
+if(placeHolderId=="deleteOption") cellTemplate.innerHTML="<a href='DeleteEmployee.html?id="+employees[k].employeeId+"'>Delete</a>";
+}
+dynamicRow.onclick=createDynamicRowHandler(dynamicRow,employees[k].employeeId);
+}
+}
+else
+{
+alert("Invalid");
+}
+}
+};
+xmlHttpRequest.open('GET','EmployeesJS',true);
+xmlHttpRequest.send();
+}
+window.addEventListener('load',populateEmployees);
+</script>
+</head>
+<body>
+<!--Main Container starts here-->
+<div class='main_container'>
+<!--header section starts here-->
+<div class='header'>
+<div class='brand_name'>Thinking Machines
+<a href='logout.html' align='center'>logout</a>
+</div>
+</div>
+<!--header section ends here-->
+<!-- Content Section starts here-->
+<div class='content'>
+<!--left panel starts here-->
+<div class='content_left_panel'>
+<a href='Designations.html'>Designations</a><br>
+<b>Employees</b>
+</div>
+<!--left panel ends here-->
+<!--Right panel starts here-->
+<div class='content_right_panel'>
+<table border='1' id='EmployeeGridTable'>
+<thead>
+<tr>
+<th colspan='6' style='text-align:right'><a href='AddEmployee.html'>Add More Employees</a></th>
+</tr>
+<tr>
+<th>SNO</th>
+<th>ID</th>
+<th>Name</th>
+<th>Designation</th>
+<th>Edit</a></th>
+<th>Delete</a></th>
+</tr>
+</thead>
+<tbody>
+<tr style='cursor:pointer' onclick='selectEmployee(this,"${employeeBean.id}")'>
+<td style='text-align:center' placeHolderId='serialNumberPlaceHolder'></td>
+<td style='text-align:center' placeHolderId='employeeIdPlaceHolder'></td>
+<td style='text-align:center' placeHolderId='namePlaceHolder'></td>
+<td style='text-align:center' placeHolderId='titlePlaceHolder'></td>
+<td style='text-align:center' placeHolderId='editOption'></td>
+<td style='text-align:center' placeHolderId='deleteOption'></td>
+</tr>
+</tbody>
+</table>
+<div style='height:19vh marign:5px'>
+<label>Details</label>
+<table border='0' width=\"100%\">
+<tr>
+<td >EmployeeId:<span id='detail_panel_employeeId'></span></td>
+<td >DateOfBirth: <span id='detail_panel_dateOfBirth' style='margin-right:30px'></span></td>
+</tr>
+<tr>
+<td >Gender: <span id='detail_panel_gender' style='margin-right:30px'></span></td>
+<td >isIndian: <span id='detail_panel_isIndian' style='margin-right:30px'></span></td>
+</tr>
+<tr>
+<td >PanCard: <span id='detail_panel_panCard' style='margin-right:30px'></span></td>
+<td >AadharCardNumber: <span id='detail_panel_aadharCardNumber' style='margin-right:30px'></span></td>
+<td >BasicSalary: <span id='detail_panel_basicSalary' style='margin-right:30px'></span></td>
+</tr>
+</table>
+</div>
+</div>
+<!--Right panel ends here-->
+</div>
+<!--Content Section ends here-->
+<!--footer section starts here-->
+<div class='footer'>&copy;Thinking Machines
+</div>
+<!--footer section ends here-->
+</div>
+<!--Main Container ends here-->
+</body>
+</html>
